@@ -1,5 +1,5 @@
 angular
-  .module('MyApp')
+  .module('app')
   .controller('NavbarController', _NavbarController);
 
 _NavbarController.$inject = ['$scope', 'Auth'];
