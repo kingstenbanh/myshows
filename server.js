@@ -11,11 +11,8 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var compress = require('compression');
 
-var agenda = require('agenda')({
-  db: {
-    address: 'localhost:27017/test'
-  }
-});
+var agenda = require('agenda')({ db: { address: 'mongodb://kingsten:abcd1234@ds041651.mongolab.com:41651/tvtracker'} });
+
 var sugar = require('sugar');
 var nodemailer = require('nodemailer');
 
@@ -91,7 +88,7 @@ userSchema.methods.comparePassword = function(candidatePassword, cb) {
 var User = mongoose.model('User', userSchema);
 var Show = mongoose.model('Show', showSchema);
 
-mongoose.connect('localhost');
+mongoose.connect('mongodb://kingsten:abcd1234@ds041651.mongolab.com:41651/tvtracker');
 
 var app = express();
 var port = process.env.PORT || 3030;
