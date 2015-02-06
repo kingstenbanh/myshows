@@ -9,6 +9,7 @@ var mongoose = require('mongoose');
 var session = require('express-session');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var compress = require('compression');
 
 var agenda = require('agenda')({
   db: {
@@ -96,6 +97,7 @@ var app = express();
 var port = process.env.PORT || 3030;
 
 app.set('port', port);
+app.use(compress());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
@@ -105,7 +107,7 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'), { maxAge: 86400000 }));
 
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) next();
